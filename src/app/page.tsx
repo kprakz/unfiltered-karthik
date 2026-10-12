@@ -1,4 +1,12 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
+import Image from "next/image";
 import BinaryRain from "./BinaryRain";
+
+// Your photo: save it in the `public` folder as me.jpg, me.png or me.webp. Without one, the page shows your initial.
+const photo = ["me.jpg", "me.jpeg", "me.png", "me.webp"].find((file) =>
+  existsSync(path.join(process.cwd(), "public", file)),
+);
 
 // Everything on the page lives in these lists: add a project or a link here and it shows up.
 
@@ -55,9 +63,20 @@ export default function Home() {
     <main className="mx-auto flex min-h-screen w-full max-w-md flex-col px-4 py-12">
       <BinaryRain />
       <header className="rise flex flex-col items-center text-center">
-        <div className="glow flex h-24 w-24 items-center justify-center rounded-full border-2 border-green-500/70 bg-black/70 font-mono text-4xl font-bold text-green-400 shadow-[0_0_30px_rgba(34,197,94,0.35)]">
-          {profile.name[0]}
-        </div>
+        {photo ? (
+          <Image
+            src={`/${photo}`}
+            alt={profile.name}
+            width={192}
+            height={192}
+            loading="eager"
+            className="h-24 w-24 rounded-full border-2 border-green-500/70 object-cover shadow-[0_0_30px_rgba(34,197,94,0.35)]"
+          />
+        ) : (
+          <div className="glow flex h-24 w-24 items-center justify-center rounded-full border-2 border-green-500/70 bg-black/70 font-mono text-4xl font-bold text-green-400 shadow-[0_0_30px_rgba(34,197,94,0.35)]">
+            {profile.name[0]}
+          </div>
+        )}
         <h1 className="mt-4 text-2xl font-semibold tracking-tight text-white">{profile.name}</h1>
         <p className="glow font-mono text-sm text-green-400">@{profile.handle}</p>
         <p className="cursor mt-3 text-balance font-mono text-sm text-green-100/90">&gt; {profile.bio}</p>
