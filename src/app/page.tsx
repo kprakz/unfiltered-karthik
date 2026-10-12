@@ -1,3 +1,5 @@
+import BinaryRain from "./BinaryRain";
+
 // Everything on the page lives in these lists: add a project or a link here and it shows up.
 
 const profile = {
@@ -51,18 +53,19 @@ function ArrowIcon() {
 export default function Home() {
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-md flex-col px-4 py-12">
+      <BinaryRain />
       <header className="rise flex flex-col items-center text-center">
-        <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-amber-300 to-orange-500 text-4xl font-bold text-zinc-950 shadow-lg shadow-orange-500/20">
+        <div className="glow flex h-24 w-24 items-center justify-center rounded-full border-2 border-green-500/70 bg-black/70 font-mono text-4xl font-bold text-green-400 shadow-[0_0_30px_rgba(34,197,94,0.35)]">
           {profile.name[0]}
         </div>
-        <h1 className="mt-4 text-2xl font-semibold tracking-tight">{profile.name}</h1>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400">@{profile.handle}</p>
-        <p className="mt-3 text-balance text-zinc-700 dark:text-zinc-300">{profile.bio}</p>
+        <h1 className="mt-4 text-2xl font-semibold tracking-tight text-white">{profile.name}</h1>
+        <p className="glow font-mono text-sm text-green-400">@{profile.handle}</p>
+        <p className="cursor mt-3 text-balance font-mono text-sm text-green-100/90">&gt; {profile.bio}</p>
       </header>
 
       <section className="rise mt-10 [animation-delay:100ms]">
-        <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
-          What I&apos;m building
+        <h2 className="glow mb-3 font-mono text-xs font-semibold uppercase tracking-widest text-green-400">
+          $ what_im_building
         </h2>
         <ul className="space-y-3">
           {projects.map((project) => (
@@ -71,20 +74,20 @@ export default function Home() {
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group block rounded-2xl border border-zinc-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-orange-400 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-orange-400"
+                className="group block rounded-2xl border border-green-500/25 bg-black/70 p-4 backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-green-400 hover:shadow-[0_0_20px_rgba(34,197,94,0.25)]"
               >
                 <div className="flex items-center justify-between gap-3">
                   <span className="flex items-center gap-2 font-semibold">
                     {project.name}
-                    <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
+                    <span className="rounded-full bg-green-500/15 px-2 py-0.5 font-mono text-xs font-medium text-green-300">
                       {project.status}
                     </span>
                   </span>
-                  <span className="text-zinc-400 transition group-hover:text-orange-500">
+                  <span className="text-zinc-500 transition group-hover:text-green-400">
                     <ArrowIcon />
                   </span>
                 </div>
-                <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{project.tagline}</p>
+                <p className="mt-1 text-sm text-zinc-400">{project.tagline}</p>
               </a>
             </li>
           ))}
@@ -92,8 +95,8 @@ export default function Home() {
       </section>
 
       <section className="rise mt-8 [animation-delay:200ms]">
-        <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
-          Find me
+        <h2 className="glow mb-3 font-mono text-xs font-semibold uppercase tracking-widest text-green-400">
+          $ find_me
         </h2>
         <ul className="space-y-3">
           {links.map((link) => (
@@ -102,11 +105,11 @@ export default function Home() {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 rounded-2xl border border-zinc-200 bg-white px-4 py-3 font-medium transition hover:-translate-y-0.5 hover:border-orange-400 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-orange-400"
+                className="flex items-center gap-3 rounded-2xl border border-green-500/25 bg-black/70 px-4 py-3 font-medium backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-green-400 hover:shadow-[0_0_20px_rgba(34,197,94,0.25)]"
               >
                 <Icon name={link.icon} />
                 <span className="flex-1">{link.label}</span>
-                <span className="text-zinc-400">
+                <span className="text-zinc-500">
                   <ArrowIcon />
                 </span>
               </a>
@@ -115,7 +118,7 @@ export default function Home() {
         </ul>
       </section>
 
-      <footer className="mt-auto pt-12 text-center text-xs text-zinc-400 dark:text-zinc-500">
+      <footer className="mt-auto pt-12 text-center font-mono text-xs text-green-500/60">
         © {new Date().getFullYear()} {profile.name}
       </footer>
     </main>
