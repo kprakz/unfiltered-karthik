@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 import Image from "next/image";
-import BinaryRain from "./BinaryRain";
+import BlockWorld from "./BlockWorld";
 
 // Your photo: save it in the `public` folder as me.jpg, me.png or me.webp. Without one, the page shows your initial.
 const photo = ["me.jpg", "me.jpeg", "me.png", "me.webp"].find((file) =>
@@ -60,6 +60,10 @@ function ArrowIcon() {
   );
 }
 
+// A Minecraft-style grey panel: bevelled edges and a black outline, square corners.
+const panel =
+  "border-2 border-black bg-[#c6c6c6] text-[#2b2b2b] shadow-[inset_3px_3px_0_#ffffff,inset_-3px_-3px_0_#555555] transition hover:bg-[#d4dcff]";
+
 /**
  * The link-in-bio page: profile, projects and social links in one mobile-first column.
  * @returns {JSX.Element} The home page.
@@ -67,7 +71,7 @@ function ArrowIcon() {
 export default function Home() {
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-md flex-col px-4 py-12">
-      <BinaryRain />
+      <BlockWorld />
       <header className="rise flex flex-col items-center text-center">
         {photo ? (
           <Image
@@ -76,43 +80,38 @@ export default function Home() {
             width={192}
             height={192}
             loading="eager"
-            className="h-24 w-24 rounded-full border-2 border-green-500/70 object-cover shadow-[0_0_30px_rgba(34,197,94,0.35)]"
+            className="h-24 w-24 border-4 border-black object-cover shadow-[4px_4px_0_rgba(0,0,0,0.35)]"
           />
         ) : (
-          <div className="glow flex h-24 w-24 items-center justify-center rounded-full border-2 border-green-500/70 bg-black/70 font-mono text-4xl font-bold text-green-400 shadow-[0_0_30px_rgba(34,197,94,0.35)]">
+          <div className="flex h-24 w-24 items-center justify-center border-4 border-black bg-[#6fbf3d] font-pixel text-5xl text-white shadow-[4px_4px_0_rgba(0,0,0,0.35)] [text-shadow:3px_3px_0_#3f3f3f]">
             {profile.name[0]}
           </div>
         )}
-        <h1 className="mt-4 text-2xl font-semibold tracking-tight text-white">{profile.name}</h1>
-        <p className="glow font-mono text-sm text-green-400">@{profile.handle}</p>
-        <p className="cursor mt-3 text-balance font-mono text-sm text-green-100/90">&gt; {profile.bio}</p>
+        <h1 className="mc-text mt-4 font-pixel text-4xl text-white">{profile.name}</h1>
+        <p className="mc-text font-pixel text-lg text-[#ffff55]">@{profile.handle}</p>
+        <p className="mt-3 border-2 border-black/70 bg-black/45 px-3 py-1.5 text-balance text-sm text-white">
+          {profile.bio}
+        </p>
       </header>
 
       <section className="rise mt-10 [animation-delay:100ms]">
-        <h2 className="glow mb-3 font-mono text-xs font-semibold uppercase tracking-widest text-green-400">
-          $ what_im_building
-        </h2>
+        <h2 className="mc-text mb-3 font-pixel text-xl text-white">What I&apos;m building</h2>
         <ul className="space-y-3">
           {projects.map((project) => (
             <li key={project.name}>
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group block rounded-2xl border border-green-500/25 bg-black/70 p-4 backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-green-400 hover:shadow-[0_0_20px_rgba(34,197,94,0.25)]"
-              >
+              <a href={project.url} target="_blank" rel="noopener noreferrer" className={`group block p-4 ${panel}`}>
                 <div className="flex items-center justify-between gap-3">
-                  <span className="flex items-center gap-2 font-semibold">
+                  <span className="flex items-center gap-2 font-pixel text-lg">
                     {project.name}
-                    <span className="rounded-full bg-green-500/15 px-2 py-0.5 font-mono text-xs font-medium text-green-300">
+                    <span className="border-2 border-black bg-[#5fa833] px-1.5 font-pixel text-xs text-white">
                       {project.status}
                     </span>
                   </span>
-                  <span className="text-zinc-500 transition group-hover:text-green-400">
+                  <span className="text-[#555555] transition group-hover:text-black">
                     <ArrowIcon />
                   </span>
                 </div>
-                <p className="mt-1 text-sm text-zinc-400">{project.tagline}</p>
+                <p className="mt-1 text-sm text-[#3f3f3f]">{project.tagline}</p>
               </a>
             </li>
           ))}
@@ -120,9 +119,7 @@ export default function Home() {
       </section>
 
       <section className="rise mt-8 [animation-delay:200ms]">
-        <h2 className="glow mb-3 font-mono text-xs font-semibold uppercase tracking-widest text-green-400">
-          $ find_me
-        </h2>
+        <h2 className="mc-text mb-3 font-pixel text-xl text-white">Find me</h2>
         <ul className="space-y-3">
           {links.map((link) => (
             <li key={link.label}>
@@ -130,11 +127,11 @@ export default function Home() {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 rounded-2xl border border-green-500/25 bg-black/70 px-4 py-3 font-medium backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-green-400 hover:shadow-[0_0_20px_rgba(34,197,94,0.25)]"
+                className={`flex items-center gap-3 px-4 py-3 font-pixel text-lg ${panel}`}
               >
                 <Icon name={link.icon} />
                 <span className="flex-1">{link.label}</span>
-                <span className="text-zinc-500">
+                <span className="text-[#555555]">
                   <ArrowIcon />
                 </span>
               </a>
@@ -143,8 +140,11 @@ export default function Home() {
         </ul>
       </section>
 
-      <footer className="mt-auto pt-12 text-center font-mono text-xs text-green-500/60">
-        © {new Date().getFullYear()} {profile.name}
+      <footer className="mc-text mt-auto pt-12 text-center font-pixel text-sm text-white">
+        <p>Click a block to break it, click the sky to place one</p>
+        <p className="mt-1 opacity-80">
+          © {new Date().getFullYear()} {profile.name}
+        </p>
       </footer>
     </main>
   );
