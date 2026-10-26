@@ -23,6 +23,12 @@ const projects = [
     url: "https://ladderly.vercel.app",
     status: "Live",
   },
+  {
+    name: "HOMEFLIX",
+    tagline: "Your own Netflix at home: watch the movies on your PC or Mac from your phone, iPad or TV.",
+    url: "https://kprakz.github.io/homeflix/",
+    status: "Live",
+  },
 ];
 
 const links = [
